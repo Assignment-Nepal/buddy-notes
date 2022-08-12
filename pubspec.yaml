@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons:
   firebase:
   logger: ^1.1.0
+  cloud_firestore: ^3.1.9
 
 
 

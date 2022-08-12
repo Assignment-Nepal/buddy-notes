@@ -2,9 +2,15 @@ import 'dart:async';
 import 'dart:isolate';
 
 import 'package:buddyapp/utils/utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+
+
+/// Requires that a Firestore emulator is running locally.
+/// See https://firebase.flutter.dev/docs/firestore/usage#emulator-usage
+bool shouldUseFirestoreEmulator = false;
 
 void main() {
   mainDelegate();
@@ -17,6 +23,10 @@ void mainDelegate() async {
   /// Wait for Firebase to initialize
   /// ref: https://firebase.flutter.dev/docs/overview
   await Firebase.initializeApp();
+
+  if (shouldUseFirestoreEmulator) {
+    FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+  }
   /// register global error handler
   FlutterError.onError = (FlutterErrorDetails details) async {
     if (isInDebugMode) {
