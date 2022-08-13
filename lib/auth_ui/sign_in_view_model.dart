@@ -9,11 +9,12 @@ class SignInViewModel with ChangeNotifier {
   bool isLoading = false;
   dynamic error;
 
-  Future<void> _signIn(Future<UserCredential> Function() signInMethod) async {
+
+  Future<void> signInAnonymously() async {
     try {
       isLoading = true;
       notifyListeners();
-      await signInMethod();
+     await signInMethod();
       error = null;
     } catch (e) {
       error = e;
@@ -24,8 +25,9 @@ class SignInViewModel with ChangeNotifier {
     }
   }
 
-  Future<void> signInAnonymously() async {
-    await _signIn(auth.signInAnonymously);
+  Future<UserCredential> signInMethod(){
+    return auth.signInAnonymously();
   }
 
 }
+
