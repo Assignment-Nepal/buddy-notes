@@ -1,3 +1,4 @@
+import 'package:buddyapp/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class SignUPScreen extends StatefulWidget {
@@ -15,13 +16,15 @@ class _SignUPScreenState extends State<SignUPScreen> {
           minimum: const EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
-                child: TextFormField(
-                    decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                )),
-              )
+              Text(
+                "Sign Up",
+                style: Theme.of(context).textTheme.headline3,
+              ),
+              const Spacer(),
+             const  TextField(),
+              const Spacer(),
             ],
           )),
     );
