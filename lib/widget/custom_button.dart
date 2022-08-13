@@ -61,6 +61,7 @@ class FormSubmitButton extends CustomRaisedButton {
     Key? key,
     required String text,
     bool loading = false,
+    required Color color,
     VoidCallback? onPressed,
   }) : super(
     key: key,
@@ -68,8 +69,8 @@ class FormSubmitButton extends CustomRaisedButton {
       text,
       style: const TextStyle(color: Colors.white, fontSize: 20.0),
     ),
-    height: 44.0,
-    color: const Color(0xFF024A9F),
+    height: 60.0,
+    color: color,
     textColor: Colors.black87,
     loading: loading,
     onPressed: onPressed,
@@ -83,7 +84,7 @@ class SignInButton extends CustomRaisedButton {
     required Color color,
     VoidCallback? onPressed,
     Color textColor = Colors.black87,
-    double height = 50.0,
+    double height = 60.0,
   }) : super(
     key: key,
     child: Text(text, style: TextStyle(color: textColor, fontSize: 16.0)),

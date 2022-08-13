@@ -94,6 +94,7 @@ class SignInPageContents extends StatelessWidget {
               const SizedBox(height: 32.0),
               SignInButton(
                 key: emailPasswordButtonKey,
+                height:60 ,
                 text: Strings.signInWithEmailPassword,
                 onPressed: viewModel.isLoading
                     ? null
@@ -106,7 +107,7 @@ class SignInPageContents extends StatelessWidget {
                   }));
                 },
                 textColor: Colors.white,
-                color: const Color(0xFF024A9F),
+                color: Theme.of(context).primaryColor,
               ),
               const SizedBox(height: 8),
               const Text(
@@ -118,7 +119,7 @@ class SignInPageContents extends StatelessWidget {
               SignInButton(
                 key: anonymousButtonKey,
                 text: Strings.goAnonymous,
-                color: const Color(0xFF024A9F),
+                color: Theme.of(context).primaryColor,
                 textColor: Colors.white,
                 onPressed:
                     viewModel.isLoading ? null : viewModel.signInAnonymously,
