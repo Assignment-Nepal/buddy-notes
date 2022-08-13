@@ -106,7 +106,7 @@ class SignInPageContents extends StatelessWidget {
                   }));
                 },
                 textColor: Colors.white,
-                color: Theme.of(context).primaryColor,
+                color: const Color(0xFF024A9F),
               ),
               const SizedBox(height: 8),
               const Text(
@@ -118,7 +118,7 @@ class SignInPageContents extends StatelessWidget {
               SignInButton(
                 key: anonymousButtonKey,
                 text: Strings.goAnonymous,
-                color: Theme.of(context).primaryColor,
+                color: const Color(0xFF024A9F),
                 textColor: Colors.white,
                 onPressed:
                     viewModel.isLoading ? null : viewModel.signInAnonymously,
