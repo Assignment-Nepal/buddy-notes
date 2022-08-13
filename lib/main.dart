@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth_ui/sign_in_page.dart';
 import 'auth_ui/top_level_providers.dart';
+import 'home/home_view.dart';
 
 
 
