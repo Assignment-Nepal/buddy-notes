@@ -6,6 +6,7 @@ import 'package:buddyapp/utils/utils.dart';
 import 'package:buddyapp/widget/auth_widget.dart';
 import 'package:buddyapp/widget/material_color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:features_notes/home/home_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -17,7 +18,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth_ui/sign_in_page.dart';
 import 'auth_ui/top_level_providers.dart';
-import 'home/home_view.dart';
 
 
 
