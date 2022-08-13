@@ -30,8 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  features_notes:
-    path: features_notes
+
 
   firebase_crashlytics: ^2.5.2
   firebase_core: ^1.12.0
