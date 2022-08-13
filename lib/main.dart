@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:isolate';
 
+import 'package:buddyapp/auth_ui/signup_screen.dart';
+import 'package:buddyapp/utils/app_theme.dart';
 import 'package:buddyapp/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +12,6 @@ import 'package:flutter/material.dart';
 
 import 'firebase_utils/snapshot.dart';
 import 'firebase_utils/firebase_abstract.dart';
-
 
 /// Requires that a Firestore emulator is running locally.
 /// See https://firebase.flutter.dev/docs/firestore/usage#emulator-usage
@@ -21,7 +22,6 @@ void main() {
 }
 
 void mainDelegate() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Wait for Firebase to initialize
@@ -31,6 +31,7 @@ void mainDelegate() async {
   if (shouldUseFirestoreEmulator) {
     FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
   }
+
   /// register global error handler
   FlutterError.onError = (FlutterErrorDetails details) async {
     if (isInDebugMode) {
@@ -60,7 +61,6 @@ void mainDelegate() async {
   runZonedGuarded<Future<void>>(() async {
     runApp(const MyApp());
   }, (error, stackTrace) {
-
     FirebaseCrashlytics.instance.recordError(error, stackTrace);
 
     // Whenever an error occurs, call the `_reportError` function. This sends
@@ -71,9 +71,7 @@ void mainDelegate() async {
       logger.e(e);
     }
   });
-
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -82,21 +80,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        title: 'Flutter Demo',
+        theme: AppTheme.lightTheme,
+        home: const SignUPScreen());
   }
 }
 
@@ -130,10 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -187,5 +170,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
