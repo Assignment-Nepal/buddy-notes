@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:buddyapp/utils/utils.dart';
@@ -6,6 +7,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+
+import 'firebase_utils/endpoint.dart';
+import 'firebase_utils/firebase_abstract.dart';
 
 
 /// Requires that a Firestore emulator is running locally.
@@ -117,7 +121,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter() async {
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -126,7 +130,10 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -180,3 +187,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
