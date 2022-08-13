@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:buddyapp/utils/utils.dart';
+import 'package:buddyapp/widget/auth_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth_ui/sign_in_page.dart';
 import 'auth_ui/top_level_providers.dart';
+import 'home/home_view.dart';
 
 
 
@@ -90,7 +92,14 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.indigo),
       debugShowCheckedModeBanner: false,
-      home: SignInPage(),
+      home:  AuthWidget(
+        nonSignedInBuilder: (_) => Consumer(
+          builder: (context, ref, _) {
+            return const SignInPage();
+          },
+        ),
+        signedInBuilder: (_) => const HomeView(),
+      ),
 
     );
   }
