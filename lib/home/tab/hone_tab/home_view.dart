@@ -1,4 +1,5 @@
 
+import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:buddyapp/auth_ui/constants/strings.dart';
 import 'package:buddyapp/constant/app_colors.dart';
 import 'package:flutter/foundation.dart';
@@ -299,7 +300,7 @@ class _RecentViewedItemState extends State<RecentViewedItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * .6,
+      width: MediaQuery.of(context).size.width * .7,
       decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -312,7 +313,42 @@ class _RecentViewedItemState extends State<RecentViewedItem> {
           ]
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              pdfLayout(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 4),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * .4,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:  const [
+                      Text("DataStructure and Alogrothim",
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(color: AppColors.gray600,
+                            fontSize: 14,
+                            letterSpacing: .2,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      SizedBox(height: 4,),
+                      Text("Dcrust university Haryana India",maxLines: 2,
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(color: AppColors.gray600,fontSize: 12,letterSpacing: .2),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
 
           const Spacer(),
 
@@ -334,6 +370,69 @@ class _RecentViewedItemState extends State<RecentViewedItem> {
           backgroundColor: AppColors.lightHintColor.withOpacity(0.3),
           value: .3,
         ),
+      ),
+    );
+  }
+}
+
+
+class pdfLayout extends StatefulWidget {
+  const pdfLayout({Key? key}) : super(key: key);
+
+  @override
+  _pdfLayoutState createState() => _pdfLayoutState();
+}
+
+class _pdfLayoutState extends State<pdfLayout> {
+  bool _isLoading = true;
+  late PDFDocument document;
+
+  @override
+  void initState() {
+    super.initState();
+    loadDocument();
+  }
+
+  loadDocument() async {
+    try{
+      document = await PDFDocument.fromURL(
+        "https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf",
+        /* cacheManager: CacheManager(
+          Config(
+            "customCacheKey",
+            stalePeriod: const Duration(days: 2),
+            maxNrOfCacheObjects: 10,
+          ),
+        ), */
+      );
+      setState(() => _isLoading = false);
+
+    }catch(error){
+
+    }
+
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      width: 100,
+      color: AppColors.whiteBackgroundColor,
+      margin: EdgeInsets.only(top: 10),
+      alignment: Alignment.center,
+      child: Center(
+        child: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : IgnorePointer(
+              ignoring: true,
+              child: PDFViewer(
+          showIndicator: false,
+          document: document,
+          lazyLoad: true,
+        ),
+            ),
       ),
     );
   }

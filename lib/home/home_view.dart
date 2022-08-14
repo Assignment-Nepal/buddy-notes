@@ -143,18 +143,20 @@ class HomeState extends State<HomeRoute> with SingleTickerProviderStateMixin, Wi
 
   Widget getBottomNavigationTab(BottomTab? bottomTab) {
 
-    return PageView(
-      physics: NeverScrollableScrollPhysics(),
-      controller: _dashboardController,
-      children: <Widget>[
+    return SafeArea(
+      child: PageView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: _dashboardController,
+        children: <Widget>[
 
-        HomeView(),
-        ScreenView(),
-        ScreenView(),
-        ScreenView(),
+          HomeView(),
+          ScreenView(),
+          ScreenView(),
+          ScreenView(),
 
 
-      ],
+        ],
+      ),
     );
   }
 

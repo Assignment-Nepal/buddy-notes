@@ -90,10 +90,10 @@ class MyApp extends ConsumerWidget {
       home:  AuthWidget(
         nonSignedInBuilder: (_) => Consumer(
           builder: (context, ref, _) {
-            return  HomeRoute();
+            return  const HomeRoute();
           },
         ),
-        signedInBuilder: (_) =>  HomeRoute(),
+        signedInBuilder: (_) =>  const HomeRoute(),
       ),
 
     );
