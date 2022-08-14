@@ -17,17 +17,28 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: const [
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children:  [
 
-          SizedBox(height: 30,),
+              CustomAppBar(),
 
-          RecentlyReadNotes(),
+              const SizedBox(height: 4),
 
-          AskForNotesCard(),
+              ProfileWidget(onClicked: () {  }, imagePath: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80',
+              ),
 
-        ],
+              SizedBox(height: 30,),
+
+              RecentlyReadNotes(),
+
+              AskForNotesCard(),
+
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -52,6 +63,7 @@ class _AskForNotesCardState extends State<AskForNotesCard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
+
 
         const SizedBox(height: 30),
 
@@ -433,6 +445,144 @@ class _pdfLayoutState extends State<pdfLayout> {
           lazyLoad: true,
         ),
             ),
+      ),
+    );
+  }
+}
+
+
+class ProfileWidget extends StatelessWidget {
+  final String imagePath;
+
+  final VoidCallback onClicked;
+
+  const ProfileWidget({
+    Key? key,
+    required this.imagePath,
+    required this.onClicked,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        decoration:BoxDecoration(
+            color: Theme.of(context).primaryColor.withOpacity(.9),
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(1, 1),
+                  blurRadius: 2,
+                  color: Colors.black.withOpacity(.25)
+              )
+            ]
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Good Evening",
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(color: AppColors.whiteBackgroundColor.withOpacity(.79),
+                            fontSize: 22,
+                            letterSpacing: .2,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      Text("User Name!",
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(color:AppColors.whiteBackgroundColor.withOpacity(.79),
+                            fontSize: 17,
+                            letterSpacing: .2,
+                            fontWeight: FontWeight.normal
+                        ),
+                      ),
+                    ],
+                  ),
+                  buildImage(),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildImage() {
+    final image = NetworkImage(imagePath);
+
+    return ClipOval(
+      child: Material(
+        color: Colors.transparent,
+        child: Ink.image(
+          image: image,
+          fit: BoxFit.cover,
+          width: 60,
+          height: 60,
+        ),
+      ),
+    );
+  }
+
+  Widget buildCircle({
+    required Widget child,
+    required double all,
+    required Color color,
+  }) =>
+      ClipOval(
+        child: Container(
+          padding: EdgeInsets.all(all),
+          color: color,
+          child: child,
+        ),
+      );
+}
+
+
+class CustomAppBar extends StatefulWidget {
+  const CustomAppBar({Key? key}) : super(key: key);
+
+  @override
+  _CustomAppBarState createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Ink.image(
+            image: NetworkImage(''
+                  "https://png.pngtree.com/element_pic/00/16/07/115783931601b5c.jpg"),
+            fit: BoxFit.cover,
+            width: 60,
+            height: 40,
+          ),
+          Row(children: [
+           Icon(Icons.search),
+            SizedBox(width: 16,),
+            Icon(Icons.notifications_active),
+          ],)
+        ],
       ),
     );
   }
