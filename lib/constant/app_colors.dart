@@ -20,6 +20,7 @@ class AppColors {
   static const Color lightHintColor = const Color(0xFFC4C4C4);
 
 
+  static const Color gray200 = const Color(0xFFEDF2F7);
 
 
 }

@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: ^2.0.15
   curved_navigation_bar: ^1.0.1
   advance_pdf_viewer: ^2.0.1
+  searchbar_animation: ^0.0.2
 
 
 

@@ -1,5 +1,5 @@
 import 'package:buddyapp/constant/app_colors.dart';
-import 'package:buddyapp/home/tab/hone_tab/pdf_layout.dart';
+import 'package:buddyapp/home/tab/home_tab/pdf_layout.dart';
 import 'package:flutter/material.dart';
 
 class RecentlyViewedNotes extends StatefulWidget {

@@ -1,5 +1,6 @@
 
-import 'package:buddyapp/home/tab/hone_tab/home_view.dart';
+import 'package:buddyapp/home/tab/home_tab/home_view.dart';
+import 'package:buddyapp/home/tab/lecture_flow_tab/lecture_flow.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -147,10 +148,10 @@ class HomeState extends State<HomeRoute> with SingleTickerProviderStateMixin, Wi
       child: PageView(
         physics: NeverScrollableScrollPhysics(),
         controller: _dashboardController,
-        children: <Widget>[
+        children: const <Widget>[
 
           HomeView(),
-          ScreenView(),
+          StartLectureFlow(),
           ScreenView(),
           ScreenView(),
 

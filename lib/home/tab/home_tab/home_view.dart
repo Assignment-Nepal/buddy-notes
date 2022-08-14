@@ -1,8 +1,8 @@
 
-import 'package:buddyapp/home/tab/hone_tab/ask_for_notes_card.dart';
-import 'package:buddyapp/home/tab/hone_tab/custom_app_bar.dart';
-import 'package:buddyapp/home/tab/hone_tab/profile_widget.dart';
-import 'package:buddyapp/home/tab/hone_tab/recently_viewed_notes_card.dart';
+import 'package:buddyapp/home/tab/home_tab/ask_for_notes_card.dart';
+import 'package:buddyapp/home/tab/home_tab/custom_app_bar.dart';
+import 'package:buddyapp/home/tab/home_tab/profile_widget.dart';
+import 'package:buddyapp/home/tab/home_tab/recently_viewed_notes_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
