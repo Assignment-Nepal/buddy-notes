@@ -330,7 +330,7 @@ class _RecentViewedItemState extends State<RecentViewedItem> {
         height: 6,
         child: LinearProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(
-              AppColors.violetDarkColor.withOpacity(0.6)),
+             Theme.of(context).primaryColor.withOpacity(0.6)),
           backgroundColor: AppColors.lightHintColor.withOpacity(0.3),
           value: .3,
         ),
