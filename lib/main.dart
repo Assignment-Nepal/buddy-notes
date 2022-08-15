@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:buddyapp/utils/utils.dart';
@@ -10,10 +9,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'auth_ui/sign_in_page.dart';
+
 import 'home/home_view.dart';
-
-
 
 /// Requires that a Firestore emulator is running locally.
 /// See https://firebase.flutter.dev/docs/firestore/usage#emulator-usage
@@ -24,7 +21,6 @@ void main() {
 }
 
 void mainDelegate() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Wait for Firebase to initialize
@@ -34,6 +30,7 @@ void mainDelegate() async {
   if (shouldUseFirestoreEmulator) {
     FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
   }
+
   /// register global error handler
   FlutterError.onError = (FlutterErrorDetails details) async {
     if (isInDebugMode) {
@@ -61,11 +58,10 @@ void mainDelegate() async {
   // - https://api.flutter.dev/flutter/dart-async/runZonedGuarded.html
 
   runZonedGuarded<Future<void>>(() async {
-    runApp( ProviderScope(
+    runApp(ProviderScope(
       child: MyApp(),
     ));
   }, (error, stackTrace) {
-
     FirebaseCrashlytics.instance.recordError(error, stackTrace);
 
     // Whenever an error occurs, call the `_reportError` function. This sends
@@ -76,28 +72,25 @@ void mainDelegate() async {
       logger.e(e);
     }
   });
-
 }
-
 
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    MaterialColor primarySwatch = MaterialColor(0xFF024A9F, InToMaterialColors.color);
+    MaterialColor primarySwatch =
+        MaterialColor(0xFF024A9F, InToMaterialColors.color);
     return MaterialApp(
-      theme: ThemeData(primarySwatch: primarySwatch,primaryColor: primarySwatch),
+      theme:
+          ThemeData(primarySwatch: primarySwatch, primaryColor: primarySwatch),
       debugShowCheckedModeBanner: false,
-      home:  AuthWidget(
+      home: AuthWidget(
         nonSignedInBuilder: (_) => Consumer(
           builder: (context, ref, _) {
-            return  const HomeRoute();
+            return const HomeRoute();
           },
         ),
-        signedInBuilder: (_) =>  const HomeRoute(),
+        signedInBuilder: (_) => const HomeRoute(),
       ),
-
     );
   }
 }
-
-
