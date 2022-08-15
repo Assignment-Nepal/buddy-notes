@@ -88,7 +88,7 @@ class _SubjectDetailsState extends State<SubjectDetails> {
              height: 50,
              margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
              decoration:BoxDecoration(
-                 color: AppColors.gray200,
+                 color: Colors.white,
                  borderRadius: BorderRadius.circular(8),
                  boxShadow: [
                    BoxShadow(

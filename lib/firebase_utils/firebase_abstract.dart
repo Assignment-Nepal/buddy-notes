@@ -18,7 +18,14 @@ class Api{
     return ref?.get().catchError((error){
       logger.e(error);
       throw Future.error(error);
-    });;
+    });
+  }
+
+  Future<QuerySnapshot<Object?>>? getDataCollectionByOtherCollectionID(String id)  {
+    return ref?.where("university_detail_id", isEqualTo: id).get().catchError((error){
+      logger.e(error);
+      throw Future.error(error);
+    });
   }
 
   Stream<QuerySnapshot<Object?>>? streamDataCollection()  {

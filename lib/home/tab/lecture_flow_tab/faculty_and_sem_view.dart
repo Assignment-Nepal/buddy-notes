@@ -1,10 +1,12 @@
 import 'package:buddyapp/constant/app_colors.dart';
+import 'package:buddyapp/home/tab/lecture_flow_tab/snapshot.dart';
 import 'package:buddyapp/home/tab/lecture_flow_tab/subject_details.dart';
 import 'package:buddyapp/widget/widget.dart';
 import 'package:flutter/material.dart';
 
 class FacultyAndSemester extends  StatefulWidget {
-  const FacultyAndSemester({Key? key}) : super(key: key);
+  final String university_id;
+  const FacultyAndSemester({Key? key,required this.university_id}) : super(key: key);
 
   @override
   _FacultyAndSemesterState createState() => _FacultyAndSemesterState();
@@ -19,6 +21,7 @@ class _FacultyAndSemesterState extends State<FacultyAndSemester> {
   void initState() {
     super.initState();
     selectedProfileMetricIndex = 0;
+    getFaculty(widget.university_id);
   }
 
 
