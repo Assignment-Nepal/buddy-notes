@@ -70,7 +70,7 @@ class _NotesListsState extends State<NotesLists> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
 
-              SizedBox(height: 4,),
+              const SizedBox(height: 4,),
 
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,12 +119,12 @@ class _NotesListsState extends State<NotesLists> {
               children: [
                 Icon(Icons.remove_red_eye_sharp,size: 20,color: AppColors.gray600,),
                 SizedBox(width: 4,),
-                Text("15"),
+                Text(notesModel.like as String),
                 SizedBox(width: 16,),
 
                 Icon(Icons.remove_red_eye_sharp,size: 20,color: AppColors.gray600),
                 SizedBox(width: 4,),
-                Text("15"),
+                Text(notesModel.view as String),
               ],
 
           )),

@@ -13,6 +13,8 @@ class NotesModel {
     this.semDetailId,
     this.subjectDetailId,
     this.universityDetailId,
+    this.like,
+    this.view
   });
 
   String? id;
@@ -22,11 +24,15 @@ class NotesModel {
   String? semDetailId;
   String? subjectDetailId;
   String? universityDetailId;
+  String? view;
+  String? like;
 
   factory NotesModel.fromJson(Map<String, dynamic> json) => NotesModel(
     id: json["id"],
     facultyDetailId: json["faculty_detail_id"],
     notesName: json["notes_name"],
+    view: json["view"],
+    like: json["like"],
     notesUrl: json["notes_url"],
     semDetailId: json["sem_detail_id"],
     subjectDetailId: json["subject_detail_id"],
@@ -40,6 +46,8 @@ class NotesModel {
     "notes_url": notesUrl,
     "sem_detail_id": semDetailId,
     "subject_detail_id": subjectDetailId,
+    "like": like,
+    "view": view,
     "university_detail_id": universityDetailId,
   };
 }
