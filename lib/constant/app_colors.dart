@@ -19,7 +19,7 @@ class AppColors {
   static const Color violetDarkColor = const Color(0xFF3F51B5);
   static const Color lightHintColor = const Color(0xFFC4C4C4);
 
-
+  static const Color gray100 = const Color(0xFFF7FAFC);
   static const Color gray200 = const Color(0xFFEDF2F7);
 
 

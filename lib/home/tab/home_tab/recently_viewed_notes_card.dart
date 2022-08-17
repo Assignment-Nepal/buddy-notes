@@ -1,5 +1,4 @@
 import 'package:buddyapp/constant/app_colors.dart';
-import 'package:buddyapp/home/tab/home_tab/pdf_layout.dart';
 import 'package:flutter/material.dart';
 
 class RecentlyViewedNotes extends StatefulWidget {
@@ -146,7 +145,7 @@ class _RecentViewedItemState extends State<RecentViewedItem> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              pdfLayout(),
+              SizedBox(height: 70,width: 100,),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 4),
                 child: SizedBox(

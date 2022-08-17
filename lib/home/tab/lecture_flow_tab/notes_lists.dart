@@ -1,87 +1,57 @@
-import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:buddyapp/constant/app_colors.dart';
-import 'package:buddyapp/home/tab/home_tab/pdf_layout.dart';
+import 'package:buddyapp/home/tab/lecture_flow_tab/snapshot.dart';
+import 'package:buddyapp/utils/utils.dart';
 import 'package:flutter/material.dart';
 
+import 'model/notes_model.dart';
+
 class NotesLists extends StatefulWidget {
-  const NotesLists({Key? key}) : super(key: key);
+  final String sub_id;
+  final String pathName;
+  const NotesLists({Key? key,required this.sub_id,required this.pathName}) : super(key: key);
 
   @override
   _NotesListsState createState() => _NotesListsState();
 }
 
 class _NotesListsState extends State<NotesLists> {
+  late Future subjectDataList;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    subjectDataList =  getSubjectData(widget.sub_id,widget.pathName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteBackgroundColor,
-      appBar:   PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(54),
         child: AppBar(
-          automaticallyImplyLeading: false,
-          titleSpacing: 10,
-          title:  Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:  <Widget>[
-
-                    InkWell(
-                        onTap: (){
-                          Navigator.pop(context);
-                        },
-                        child: Icon(Icons.arrow_back_rounded,color: Colors.black.withOpacity(.5  ),)),
-
-                    const SizedBox(width: 16,),
-
-                    const Text("Notes",
-                      softWrap: true,
-                      maxLines: 1,
-                      overflow: TextOverflow.fade,
-                      style: TextStyle(color: AppColors.gray600,
-                          fontSize: 18,
-                          letterSpacing: .2,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-
-
-
-
-                  ]),
-              // Icon(Icons.,color: Colors.black.withOpacity(.5  ),),
-            ],
-          ),
-          elevation: 0,
-          backgroundColor: AppColors.backgroundColor,
+          title: Text("University Name"),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: 4,
-                  itemBuilder: (context,index){
-                return InkWell(
-                  onTap: (){
-                    Navigator.push(context,MaterialPageRoute(builder: (BuildContext context) =>  const OpenPdf()));
-
-                  },
-                    child: notesItemBuilder());
-              }),
-            )
-          ],
-        ),
+      body: Column(
+        children:  [
+          const SizedBox(height: 20,),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 0),
+              child: facultyFutureBuilder(),
+            ),
+          )
+        ],
       ),
     );
   }
 
-  Widget notesItemBuilder() {
+  Widget notesItemBuilder(NotesModel notesModel) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 16),
+      height: 100,
+
       decoration:BoxDecoration(
           color:Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -97,14 +67,18 @@ class _NotesListsState extends State<NotesLists> {
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+
+              SizedBox(height: 4,),
 
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: pdfLayout(),
+                  const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: SizedBox(height: 75,width: 75,),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
@@ -113,19 +87,19 @@ class _NotesListsState extends State<NotesLists> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children:  const [
-                          Text("DataStructure and Alogrothim",
+                        children:   [
+                          Text(notesModel.notesName as String,
                             softWrap: true,
                             maxLines: 2,
                             overflow: TextOverflow.fade,
-                            style: TextStyle(color: AppColors.gray600,
+                            style: const TextStyle(color: AppColors.gray600,
                                 fontSize: 14,
                                 letterSpacing: .2,
                                 fontWeight: FontWeight.bold
                             ),
                           ),
-                          SizedBox(height: 4,),
-                          Text("Dcrust university Haryana India",maxLines: 2,
+                          const SizedBox(height: 4,),
+                          const Text("Dcrust university Haryana India",maxLines: 2,
                             overflow: TextOverflow.fade,
                             style: TextStyle(color: AppColors.gray600,fontSize: 12,letterSpacing: .2),
                           )
@@ -158,99 +132,36 @@ class _NotesListsState extends State<NotesLists> {
       ),
     );
   }
-}
 
-class OpenPdf extends StatefulWidget {
-  const OpenPdf({Key? key}) : super(key: key);
+  facultyFutureBuilder() {
+    return FutureBuilder(
+      future: subjectDataList,
+      builder: (
+          BuildContext context,
+          AsyncSnapshot snapshot,
+          ) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            logger.e(snapshot.error);
+            return const Text('Error');
+          } else if (snapshot.hasData) {
+            List<NotesModel> faculties = snapshot.data;
+            return ListView.builder(
+                itemCount: faculties.length,
+                itemBuilder: (context,index){
+                  NotesModel notesModel = faculties[index];
 
-  @override
-  _OpenPdfState createState() => _OpenPdfState();
-}
-
-class _OpenPdfState extends State<OpenPdf> {
-  bool _isLoading = true;
-  late PDFDocument document;
-
-  @override
-  void initState() {
-    super.initState();
-    loadDocument();
-  }
-
-  loadDocument() async {
-    try{
-      document = await PDFDocument.fromURL(
-        "https://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf",
-        /* cacheManager: CacheManager(
-          Config(
-            "customCacheKey",
-            stalePeriod: const Duration(days: 2),
-            maxNrOfCacheObjects: 10,
-          ),
-        ), */
-      );
-      setState(() => _isLoading = false);
-
-    }catch(error){
-
-    }
-
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        title: const Text('Notes'),
-      ),
-      body: Center(
-        child: _isLoading
-            ? Center(child: CircularProgressIndicator())
-            : PDFViewer(
-          document: document,
-          zoomSteps: 5,
-          //uncomment below line to preload all pages
-          // lazyLoad: false,
-          // uncomment below line to scroll vertically
-          // scrollDirection: Axis.vertical,
-
-          //uncomment below code to replace bottom navigation with your own
-          /* navigationBuilder:
-                          (context, page, totalPages, jumpToPage, animateToPage) {
-                        return ButtonBar(
-                          alignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.first_page),
-                              onPressed: () {
-                                jumpToPage()(page: 0);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.arrow_back),
-                              onPressed: () {
-                                animateToPage(page: page - 2);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.arrow_forward),
-                              onPressed: () {
-                                animateToPage(page: page);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.last_page),
-                              onPressed: () {
-                                jumpToPage(page: totalPages - 1);
-                              },
-                            ),
-                          ],
-                        );
-                      }, */
-        ),
-      ),
+                  return notesItemBuilder(notesModel);
+                });
+          } else {
+            return const Text('Empty data');
+          }
+        } else {
+          return Text('State: ${snapshot.connectionState}');
+        }
+      },
     );
   }
 }

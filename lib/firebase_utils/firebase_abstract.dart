@@ -21,8 +21,8 @@ class Api{
     });
   }
 
-  Future<QuerySnapshot<Object?>>? getDataCollectionByOtherCollectionID(String id)  {
-    return ref?.where("university_detail_id", isEqualTo: id).get().catchError((error){
+  Future<QuerySnapshot<Object?>>? getDataCollectionByOtherCollectionID(String id,String idKey)  {
+    return ref?.where(idKey, isEqualTo: id).get().catchError((error){
       logger.e(error);
       throw Future.error(error);
     });
